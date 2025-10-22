@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Portfolio</title>
+    
+    <!-- Ajoute le SDK EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        // Initialise EmailJS avec ton User ID
+        (function() {
+            emailjs.init("bmEQ_7MNKDVaTqSbf");
+        })();
+    </script>
+    
+    <style>
+        /* Importation des polices */
+        @font-face {
+            font-family: 'ChettaVissto';
+            src: url('ChettaVissto.otf') format('opentype');
+        }
+        
+        @font-face {
+            font-family: 'ProximaNovaBold';
+            src: url('proximanova_bold.otf') format('opentype');
+        }
+        
+        @font-face {
+            font-family: 'ProximaNovaLight';
+            src: url('proximanova_light.otf') format('opentype');
+        }
+        
+        /* Styles généraux */
+        body {
+            background-color: #4c4c4c;
+            margin: 0;
+            padding: 0;
+            color: white;
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            scroll-behavior: smooth;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Assure que le contenu reste au-dessus de l'image de fond */
+        .header,
+        .separator,
+        .container {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header - PREND TOUTE LA LARGEUR */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 30px 150px 20px 150px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        /* Nom et profession sur la même ligne */
+        .name-section {
+            display: flex;
+            align-items: baseline;
+            gap: 30px;
+        }
+        
+        .name {
+            font-family: 'ChettaVissto', Arial, sans-serif;
+            font-size: 17px;
+            color: white;
+        }
+        
+        .profession {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 14px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* Navigation à droite */
+        .nav {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 14px;
+            color: white;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            text-transform: lowercase;
+        }
+        
+        .nav a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Ligne de séparation - Marge de 100px sur les côtés */
+        .separator {
+            width: calc(100% - 200px); /* 100px gauche + 100px droite = 200px */
+            height: 1px;
+            background-color: white;
+            margin: 10px 100px 40px 100px; /* 100px sur les côtés */
+        }
+        
+        /* Conteneur principal - UNIQUEMENT POUR LE CONTENU */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 50px;
+        }
+        
+        /* Titre section - MODIFICATIONS APPLIQUÉES */
+        .section-title {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 50px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 70px;
+            margin-left: -150px; /* Décalage de 200px vers la gauche */
+            margin-top: 70px; /* Espacement de 70px depuis le haut */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Ombre fine noire */
+        }
+        
+        /* Styles pour les sections */
+        .page-section {
+            min-height: 80vh;
+            margin-bottom: 100px;
+        }
+        
+        /* Cache toutes les sections sauf projets au début */
+        .section-hidden {
+            display: none;
+        }
+        
+        /* Texte de contenu avec police light et taille réduite */
+        .content-text {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px; /* Réduit de 2px par rapport à 16px */
+            line-height: 1.5;
+        }
+        
+        /* STYLES POUR LES PROJETS JEUX VIDÉO - MODIFICATIONS APPLIQUÉES */
+        .category-title {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 24px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 50px;
+            border-bottom: 1px solid white;
+            padding-bottom: 10px;
+            width: calc(100% + 200px); /* Élargissement de 100px de chaque côté */
+            margin-left: -100px; /* Décalage pour centrer l'élargissement */
+            padding-left: 10px; /* Compensation pour garder le texte à gauche */
+        }
+        
+        .project {
+            display: flex;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: stretch; /* Permet aux enfants de s'étirer */
+	    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        /* Projet standard (texte à gauche, média à droite) */
+        .project-standard {
+            flex-direction: row;
+        }
+        
+        /* Projet inversé (texte à droite, média à gauche) */
+        .project-reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .project-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        
+        .project-media {
+            flex: 1;
+            display: flex;
+            align-items: center; /* Centre le média verticalement */
+            min-height: calc(100% + 20px); /* Hauteur du paragraphe + 20px */
+        }
+        
+        .project-title {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 20px;
+            color: white;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .project-year {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px; /* Même taille que la description */
+            color: white;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+        
+        .project-description {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .project-details {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        
+        .project-details ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        
+        .project-details li {
+            margin-bottom: 5px;
+        }
+        
+        /* NOUVEAUX STYLES POUR LES BOUTONS DE LIENS DES PROJETS */
+        .project-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .project-link {
+            color: white;
+            text-decoration: none;
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 12px;
+            padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .project-link:hover {
+            background-color: white;
+            color: #7e7e7e;
+        }
+        
+        .video-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%; /* Prend toute la hauteur disponible */
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: 100%; /* Prend toute la hauteur du conteneur */
+            object-fit: cover; /* Maintient les proportions et remplit l'espace */
+            display: block;
+        }
+        
+        /* Style pour les vidéos en boucle (sans contrôles) */
+        .video-loop {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .youtube-container {
+            position: relative;
+            width: 100%;
+            height: 100%; /* Prend toute la hauteur disponible */
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .youtube-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* NOUVEAUX STYLES POUR LES IMAGES CLIQUABLES AVEC LOGO SPOTIFY */
+        .clickable-image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .clickable-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease, filter 0.3s ease;
+        }
+        
+        .clickable-image-container:hover .clickable-image {
+            transform: scale(1.05);
+            filter: brightness(0.8);
+        }
+        
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(30, 215, 96, 0.9); /* Vert Spotify */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .clickable-image-container:hover .play-icon {
+            opacity: 1;
+        }
+        
+        .play-icon::after {
+            content: "";
+            width: 0;
+            height: 0;
+            border-left: 15px solid white;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            margin-left: 3px;
+        }
+        
+        .spotify-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            height: 100%;
+        }
+        
+        /* STYLES AVEC FLOAT POUR LA PAGE À PROPOS */
+        .about-container {
+            position: relative;
+        }
+        
+        .about-image {
+            width: 300px;
+            float: left;
+            margin-right: 60px;
+            margin-bottom: 20px;
+        }
+        
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .about-text {
+            overflow: hidden;
+        }
+        
+        .about-text p {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left; /* Changé de justify à left */
+        }
+        
+        /* Clearfix pour gérer le flottement */
+        .about-container::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        
+        /* NOUVEAUX STYLES POUR LA PAGE CONTACT */
+        .contact-container {
+            display: flex;
+            gap: 80px;
+            align-items: flex-start;
+        }
+        
+        .contact-info {
+            flex: 1;
+        }
+        
+        .contact-form {
+            flex: 1;
+        }
+        
+        .contact-title {
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .contact-subtitle {
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 16px; /* Réduit de 2px par rapport à 18px */
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .contact-details {
+            margin-bottom: 40px;
+        }
+        
+        .contact-details p {
+            margin: 10px 0;
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px; /* Réduit de 2px par rapport à 16px */
+            line-height: 1.5;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-links a {
+            color: white;
+            text-decoration: none;
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 12px; /* Réduit de 2px par rapport à 14px */
+            padding: 8px 16px;
+            border: 1px solid white;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            background-color: white;
+            color: #7e7e7e;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 12px; /* Réduit de 2px par rapport à 14px */
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        input, textarea {
+            width: 100%;
+            padding: 10px; /* Réduit de 2px par rapport à 12px */
+            border: 1px solid white;
+            background-color: transparent;
+            color: white;
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 12px; /* Réduit de 2px par rapport à 14px */
+            box-sizing: border-box;
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #cccccc;
+        }
+        
+        textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .btn-send {
+            background-color: white;
+            color: #7e7e7e;
+            border: none;
+            padding: 10px 30px; /* Réduit de 2px par rapport à 12px 30px */
+            font-family: 'ProximaNovaBold', Arial, sans-serif;
+            font-size: 12px; /* Réduit de 2px par rapport à 14px */
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-send:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .form-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 4px;
+            display: none;
+            font-family: 'ProximaNovaLight', Arial, sans-serif;
+            font-size: 14px;
+        }
+        
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .error {
+            background-color: #f44336;
+            color: white;
+        }
+
+        /* Responsive pour mobile */
+        @media (max-width: 768px) {
+            body::before {
+                width: 60%; /* Plus large sur mobile pour mieux voir */
+                opacity: 0.5; /* Un peu moins opaque sur mobile */
+            }
+            
+            .project {
+                flex-direction: column;
+                gap: 30px;
+                align-items: stretch;
+            }
+            
+            .project-standard,
+            .project-reverse {
+                flex-direction: column;
+            }
+            
+            .project-media {
+                min-height: 300px; /* Hauteur fixe sur mobile pour une meilleure expérience */
+            }
+            
+            .video-container video {
+                height: auto; /* Reprend le comportement normal sur mobile */
+                object-fit: contain;
+            }
+            
+            .video-loop {
+                height: auto;
+                object-fit: contain;
+            }
+            
+            .youtube-container {
+                height: 0;
+                padding-bottom: 56.25%; /* Retour au ratio 16:9 sur mobile */
+            }
+            
+            .about-image {
+                float: none;
+                width: 100%;
+                max-width: 300px;
+                margin: 0 auto 30px auto;
+                display: block;
+            }
+            
+            .contact-container {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .header {
+                padding: 30px 50px 20px 50px;
+            }
+            
+            .separator {
+                width: calc(100% - 100px);
+                margin: 10px 50px 40px 50px;
+            }
+            
+            .project-links {
+                justify-content: center;
+            }
+            
+            /* Ajustements responsive pour les nouveaux styles */
+            .section-title {
+                margin-left: 0;
+                margin-top: 40px;
+                font-size: 36px;
+                text-align: center;
+            }
+            
+            .category-title {
+                width: 100%;
+                margin-left: 0;
+                padding-left: 0;
+            }
+            
+            .play-icon {
+                width: 50px;
+                height: 50px;
+            }
+            
+            .play-icon::after {
+                border-left: 12px solid white;
+                border-top: 8px solid transparent;
+                border-bottom: 8px solid transparent;
+            }
+        }
+
+        /* Pour les très petits écrans */
+        @media (max-width: 480px) {
+            body::before {
+                width: 80%;
+                opacity: 0.4;
+            }
+            
+            .section-title {
+                font-size: 28px;
+                margin-top: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header et barre EN DEHORS du container pour prendre toute la largeur -->
+    <div class="header">
+        <div class="name-section">
+            <div class="name">Théophile Meunier</div>
+            <div class="profession">technicien son</div>
+        </div>
+        
+        <div class="nav">
+            <a href="#projets">projets</a>
+            <a href="#apropos">à propos</a>
+            <a href="#contact">contact</a>
+        </div>
+    </div>
+    
+    <div class="separator"></div>
+    
+    <!-- Container uniquement pour le contenu des sections -->
+    <div class="container">
+        <!-- SECTION PROJETS -->
+        <section id="projets" class="page-section">
+            <div class="section-title">MES PROJETS</div>
+
+            <!-- NOUVELLE CATÉGORIE FILMS ET SÉRIES -->
+            <div class="films-series-category">
+                <h3 class="category-title">Films et Séries</h3>
+                
+                <!-- Projet 1 : Quitte ou Double (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Quitte ou Double</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Une série de 4 épisodes en collaboration avec les 2ème année cinéma. Une histoire émouvante entre un jeune homme qui souhaite faire participer sa grand-mère, atteinte de trouble de la mémoire, à un jeu télévisé fictif dont elle est fan.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Perchman pour l'épisode 1 et 4</li>
+                                <li>Chef opérateur son pour l'épisode 1 et 4</li>
+                                <li>Montage son, Sound Design et mixage sur Pro Tools de l'épisode 4</li>
+                                <li>Composition des musiques sur Ableton Live pour l'épisode 4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <a href="https://quitteoudouble.notion.site/Quitte-ou-Double-001db6f2f32c4f94b302c24c65ef7973" target="_blank" class="spotify-link">
+                            <div class="clickable-image-container">
+                                <img src="Media/quitte_ou_double.jpg" alt="Quitte ou Double" class="clickable-image">
+                                <div class="play-icon"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 : Paralysie (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Paralysie</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Ma toute première réalisation sonore dans un contexte horrifique. Réalisé avec des élèves de 2ème année cinéma.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Chef opérateur son</li>
+                                <li>Perchman</li>
+                                <li>Montage son et mixage sur Pro Tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/Paralysie.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 : Archive 81 Sound Design en 3 heures (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Archive 81 Sound Design en 3 heures</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Exercice réalisé en seulement 3 heures sur un extrait du premier épisode de Archive 84.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Soundbank sur Soundly</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/sound_design_3hours.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 4 : Le Temps d'une Vie (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Le Temps d'une Vie</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Projet de son à l'image pour l'examen d'entrée à la spécialisation Sound Design.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Enregistrement de la soundbank</li>
+                                <li>Réalisation et mixage sur Pro Tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/Le_temps_d_une_vie.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 5 : ELK (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">ELK</h4>
+			<p class="project-year">2021</p>
+                        <p class="project-description">
+                            Sound Design sur un extrait de cinématiques du jeu vidéo ELK.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Enregistrement de la soundbank et des voix</li>
+                                <li>Réalisation et mixage son sur Pro Tools</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/ELK_Sound_Design.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 6 : Réminiscence (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Réminiscence</h4>
+			<p class="project-year">2021</p>
+                        <p class="project-description">
+                            Composition de ma toute première musique de film sur le projet Réminiscence. Il s'agit de l'examen de première année, en collaboration avec les 1ère année cinéma.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Perchman</li>
+                                <li>Montage son et voix sur Pro Tools</li>
+                                <li>Composition de la musique sur Logic Pro X</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/reminiscence_searching_scene.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Catégorie Jeux Vidéo -->
+            <div class="video-games-category">
+                <h3 class="category-title">Jeux Vidéo</h3>
+                
+                <!-- Projet 1 : Ze Fromage Climber (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Ze Fromage Climber</h4>
+			<p class="project-year">2023</p>
+                        <p class="project-description">
+                            Réalisation d'un jeu en 2D en collaboration avec les étudiants de la filière Jeux vidéo.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Enregistrement soundbank</li>
+                                <li>Code et intégration sonore sur les logiciels WWise et Unreal Engine 4</li>
+                                <li>Composition sur Logic Pro X</li>
+                                <li>Mix sur Reaper</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.instagram.com/zefromageclimber/" target="_blank" class="project-link">
+                                Instagram
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/ZeFromageClimber_Trailer.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 : Temple Path (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Temple Path</h4>
+			<p class="project-year">2023</p>
+                        <p class="project-description">
+                            Composition de la musique pour un jeu de puzzle inspiré du Japon traditionnel. 
+                            Une boucle musicale qui se mêle avec l'univers du jeu et son gameplay.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Composition et mix sur Ableton Live</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/Temple_Path_Trailer.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 : Asylum (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Asylum</h4>
+			<p class="project-year">2023</p>
+                        <p class="project-description">
+                            Développement d'un jeu d'horreur dont le but est de s'échapper, en ramassant des clefs, 
+                            d'un asile infesté de zombies. Apprentissage des différentes techniques de développement, 
+                            objectif simple, environnement absurde mais efficace.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Enregistrement soundbank</li>
+                                <li>Code et Level Design</li>
+                                <li>Intégration sonore et d'assets sur les logiciels WWise et Unreal Engine 4</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.youtube.com/watch?v=FdTQT4RuOeI" target="_blank" class="project-link">
+                                YouTube
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="youtube-container">
+                            <iframe src="https://www.youtube.com/embed/FdTQT4RuOeI" 
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOUVELLE CATÉGORIE PRODUCTION AUDIO -->
+            <div class="audio-production-category">
+                <h3 class="category-title">Production Audio</h3>
+                
+                <!-- Projet 1 : L'esprit critique (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">L'esprit critique</h4>
+			<p class="project-year">2025</p>
+                        <p class="project-description">
+                            Podcast proposé par Mediapart dont les voix débattent de l'actualité culturelle sur leur valeur esthétiques et politiques. Mon travail a consisté à dérush, monter et réaliser l'épisode 127. Puis je suis rentré en contact avec le client pour avoir son retour et lui proposer les master.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Montage son sur Séquoia</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://open.spotify.com/episode/3NRJyt8sSS1NNg1pgYFyXy?si=b2160a7e05274960" target="_blank" class="project-link">
+                                Spotify
+                            </a>
+                            <a href="https://link.deezer.com/s/31nq0MFQTlKjwcNfo2Vrw" target="_blank" class="project-link">
+                                Deezer
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <a href="https://www.mediapart.fr/journal/culture-et-idees/230325/l-esprit-critique-expositions-quand-l-art-etait-degenere-et-l-hysterie-collective" target="_blank" class="spotify-link">
+                            <div class="clickable-image-container">
+                                <img src="Media/Mediapart_Esprit_Critique.jpg" alt="L'esprit critique - Mediapart" class="clickable-image">
+                                <div class="play-icon"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 : Backstage Arte Radio épisode 1 et 2 (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Backstage Arte Radio épisode 1 et 2</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Podcast proposé par Arte Radio sur des anecdotes des régisseurs de MHD et NTM. Il fallait accompagner le narrateur avec le son pour transporter l'auditeur.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Création d'une soundbank</li>
+                                <li>Derush et réalisation sur Pro Tools</li>
+                                <li>Composition des musiques sur Ableton Live</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://open.spotify.com/episode/3OfLZscqGgmiisgZCPJYRv?si=9fde2cd3a6794aa1" target="_blank" class="project-link">
+                                Spotify
+                            </a>
+                            <a href="https://link.deezer.com/s/31npSAzN3Pr6VvuJyJtF9" target="_blank" class="project-link">
+                                Deezer
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <a href="https://www.arteradio.com/serie/backstage_dans_l_ombre_des_stars" target="_blank" class="spotify-link">
+                            <div class="clickable-image-container">
+                                <img src="Media/Backstage_Arte.jpg" alt="Backstage Arte Radio" class="clickable-image">
+                                <div class="play-icon"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 : Synthé modulaire (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Synthé modulaire</h4>
+			<p class="project-year">2022</p>
+                        <p class="project-description">
+                            Exercice de 3ème année en spécialité Sound Design. L'exercice était de créer des instruments uniquement avec des synthétiseur modulaire du programme VCV Rack.
+                        </p>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/Modular_synth.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 4 : Anoy (inversé) - CORRIGÉ POUR VIDÉO 16/9 -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Anoy</h4>
+			<p class="project-year">2021</p>
+                        <p class="project-description">
+                            Une musique que j'ai commencé en cours de Logic Pro X et que j'ai ensuite peaufiné chez moi. Il s'agit de mon 2ème projet en MAO. Tous les instruments ont été synthétisé sur le plugin Vital à l'exception d'un piano du plugin LABS et d'une guitare sur ma carte son.
+                        </p>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/Anoy.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 5 : La Delorean DMC 13 (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">La Delorean DMC 13</h4>
+			<p class="project-year">2021</p>
+                        <p class="project-description">
+                            Le projet de premier semestre en première année, une pub radio. Réalisé sur Logic Pro X avec des voix qu'on a enregistré en studio. La musique est non copyright et trouvé sur YouTube.
+                        </p>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/dmc13_pub_radio.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 6 : Premier projet MAO (inversé) - CORRIGÉ POUR VIDÉO 16/9 -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">Premier projet MAO</h4>
+			<p class="project-year">2020</p>
+                        <p class="project-description">
+                            Cette musique ne porte pas de nom, mais elle se trouve être mon tout premier projet de MAO. Il fallait créer un drum kit en synthèse sur EXS24, donc sur Logic Pro X. La guitare est un fichier audio que j'ai samplé modifié le rythme et la composition.
+                        </p>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/1st_song.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 7 : Premier projet de fiction (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Premier projet de fiction</h4>
+			<p class="project-year">2020</p>
+                        <p class="project-description">
+                            Le but de l'exercice était de créer une fiction sonore avec l'aide d'une banque de son.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Réalisation sur Logic Pro X</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video controls>
+                                <source src="Media/1st_fiction.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NOUVELLE CATÉGORIE LIVE STREAM -->
+            <div class="live-stream-category">
+                <h3 class="category-title">Live Stream</h3>
+                
+                <!-- Projet 1 : Mardi Je T'aime (standard) -->
+                <div class="project project-standard">
+                    <div class="project-info">
+                        <h4 class="project-title">Mardi Je T'aime</h4>
+                        <p class="project-description">
+                            Un évènement en direct sur Twitch en collaboration avec de nombreux créateurs/streamer. Le but est de créer des moments de divertissements sur des jeux vidéo avec une ambiance entre copains et fun.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Montage son et vidéo sur Premiere Pro</li>
+                                <li>Best Off et clip montage sur YouTube et Tik Tok</li>
+                                <li>Création des stinger, overlay et logo sur After Effect, Photoshop et Premiere Pro</li>
+                                <li>Diffusion sur Twitch et YouTube grâce à l'outil OBS Studio</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.twitch.tv/mardijetaime" target="_blank" class="project-link">
+                                Twitch
+                            </a>
+                            <a href="https://www.youtube.com/@Mardijetaime" target="_blank" class="project-link">
+                                YouTube
+                            </a>
+                            <a href="https://www.tiktok.com/@mardi.je.taime" target="_blank" class="project-link">
+                                TikTok
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video class="video-loop" autoplay muted loop playsinline>
+                                <source src="Media/Mardijetaime.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 : TAEOOOO (inversé) -->
+                <div class="project project-reverse">
+                    <div class="project-info">
+                        <h4 class="project-title">TAEOOOO</h4>
+                        <p class="project-description">
+                            Ma chaîne Twitch sur laquelle je diffuse mon gameplay sur le jeu The Finals. Diffusion de matchs, scrim et entraînements de mon équipe Esport ABSORBE.
+                        </p>
+                        <div class="project-details">
+                            <ul>
+                                <li>Création des stinger, overlay et logo sur After Effect, Photoshop et Premiere Pro</li>
+                                <li>Diffusion sur Twitch grâce à l'outil OBS Studio</li>
+                            </ul>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.twitch.tv/taeoooo" target="_blank" class="project-link">
+                                Twitch
+                            </a>
+                        </div>
+                    </div>
+                    <div class="project-media">
+                        <div class="video-container">
+                            <video class="video-loop" autoplay muted loop playsinline>
+                                <source src="Media/Absorbe_esport_Taeoo.mp4" type="video/mp4">
+                                Votre navigateur ne supporte pas la vidéo.
+                            </video>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECTION À PROPOS -->
+        <section id="apropos" class="page-section section-hidden">
+            <div class="section-title">À PROPOS</div>
+            <div class="about-container">
+                <!-- Image à gauche avec flottement -->
+                <div class="about-image">
+                    <img src="photo_perchman_1.png" alt="Théophile Meunier - Technicien son">
+                </div>
+                
+                <!-- Texte qui flotte autour de l'image -->
+                <div class="about-text">
+                    <p>Je m'appelle Théophile Meunier, j'ai 22 ans.</p>
+                    
+                    <p>Passionné par le son et la création audio, j'ai suivi trois années d'études en techniques du son, dont un an et demi de spécialisation en Sound Design et en alternance chez Lagardère Media News où j'ai occupé le poste de superviseur radio.</p>
+                    
+                    <p>Grâce à cette formation complète, j'ai acquis une polyvalence technique solide me permettant d'intervenir sur toutes les étapes d'un projet sonore : de la prise de son à la post-production, en passant par le montage, le mixage, la création musicale et le sound design. J'ai également développé des compétences en intégration sonore pour des projets interactifs, notamment dans le jeu vidéo, en utilisant des outils tels que Unreal Engine, Wwise ou Fmod. Je comprend donc les enjeux techniques et artistiques du son, et je peux adapter mes méthodes de travail à chaque univers de production.</p>
+                    
+                    <p>Après cette expérience formatrice, j'ai travaillé pendant un an et demi chez Gecko et GONG en tant qu'auto-entrepreneur. J'y ai mené des missions de restauration et valorisation de supports audio anciens (montage, numérisation, contrôle qualité de bandes numérique, DAT). J'ai également réalisé de nombreuses captations sonores, notamment à l'Académie française et à l'INJA (Institut National des Jeunes Aveugles), destinées à constituer des banques de sons pour la production de podcasts. J'ai enfin participé à la réalisation de podcasts complets, de la préparation au mixage final, en passant par le dérush et le montage.</p>
+                    
+                    <p>En parallèle, je cultive ma passion musicale en tant que trompettiste et guitariste amateur, et j'assure régulièrement la sonorisation de concerts, pour mes propres groupes ou pour d'autres artistes.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- SECTION CONTACT -->
+        <section id="contact" class="page-section section-hidden">
+            <div class="contact-container">
+                <!-- Colonne de gauche : Informations -->
+                <div class="contact-info">
+                    <h2 class="contact-title">ME CONTACTER</h2>
+                    <p class="contact-subtitle">N'hésitez pas, je suis prêt à discuter avec vous de vos projets.</p>
+                    
+                    <div class="contact-details">
+                        <p><strong>Téléphone :</strong> 07 82 05 80 11</p>
+                        <p><strong>Localisation :</strong> Versailles (78), France</p>
+                        <p><strong>Email :</strong> theophile.men@gmail.com</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <!-- Lien Instagram supprimé -->
+                        <a href="https://www.linkedin.com/in/th%C3%A9ophile-meunier-070217208/" target="_blank">LinkedIn</a>
+                    </div>
+                </div>
+                
+                <!-- Colonne de droite : Formulaire -->
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Prénom</label>
+                                <input type="text" id="firstName" name="firstName" placeholder="Votre prénom" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nom</label>
+                                <input type="text" id="lastName" name="lastName" placeholder="Votre nom" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="votre@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Votre message..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-send">Envoyer</button>
+                        
+                        <div id="formMessage" class="form-message"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // JavaScript pour gérer l'affichage des sections
+        document.addEventListener('DOMContentLoaded', function() {
+            showSection('projets');
+            
+            document.querySelectorAll('.nav a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    showSection(targetId);
+                });
+            });
+            
+            // Gestion du formulaire de contact AVEC EMAILJS
+            const contactForm = document.getElementById('contactForm');
+            const formMessage = document.getElementById('formMessage');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Afficher un message de chargement
+                formMessage.textContent = "Envoi en cours...";
+                formMessage.className = 'form-message';
+                formMessage.style.display = 'block';
+                
+                const formData = {
+                    name: document.getElementById('firstName').value,
+                    lastName: document.getElementById('lastName').value,
+                    email: document.getElementById('email').value,
+                    message: document.getElementById('message').value
+                };
+                
+                // Envoi du formulaire par EmailJS
+                sendEmail(formData);
+            });
+            
+            // Configuration des vidéos en boucle
+            setupLoopingVideos();
+        });
+        
+        function showSection(sectionId) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.add('section-hidden');
+            });
+            
+            const targetSection = document.getElementById(sectionId);
+            if (targetSection) {
+                targetSection.classList.remove('section-hidden');
+            }
+        }
+        
+        function sendEmail(formData) {
+            const formMessage = document.getElementById('formMessage');
+            
+            // TES ID EMAILJS
+            const serviceID = 'service_cblmdvz';
+            const templateID = 'template_x1hsngg';
+            
+            emailjs.send(serviceID, templateID, formData)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    formMessage.textContent = "Message envoyé avec succès ! Je vous répondrai rapidement.";
+                    formMessage.className = 'form-message success';
+                    formMessage.style.display = 'block';
+                    
+                    // Réinitialisation du formulaire
+                    document.getElementById('contactForm').reset();
+                    
+                    // Masquer le message après 5 secondes
+                    setTimeout(() => {
+                        formMessage.style.display = 'none';
+                    }, 5000);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    formMessage.textContent = "Erreur lors de l'envoi. Veuillez réessayer ou me contacter directement par email.";
+                    formMessage.className = 'form-message error';
+                    formMessage.style.display = 'block';
+                });
+        }
+        
+        function setupLoopingVideos() {
+            // Configuration pour toutes les vidéos avec la classe video-loop
+            const loopingVideos = document.querySelectorAll('.video-loop');
+            
+            loopingVideos.forEach(video => {
+                // S'assurer que les vidéos bouclent correctement
+                video.addEventListener('ended', function() {
+                    this.currentTime = 0;
+                    this.play();
+                });
+                
+                // Redémarrer la lecture si elle s'arrête pour une raison quelconque
+                video.addEventListener('pause', function() {
+                    this.play();
+                });
+            });
+        }
+    </script>
+</body>
+</html>
