@@ -60,28 +60,7 @@
             opacity: .55;
         }
 
-        /* ─── CURSOR ─────────────────────────────────────────── */
-        .cursor {
-            position: fixed;
-            width: 8px; height: 8px;
-            background: var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transform: translate(-50%,-50%);
-            transition: transform .08s, width .25s var(--ease-out), height .25s var(--ease-out), opacity .25s;
-        }
-        .cursor-ring {
-            position: fixed;
-            width: 36px; height: 36px;
-            border: 1px solid rgba(200,184,154,.4);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transform: translate(-50%,-50%);
-            transition: transform .18s var(--ease-out), width .35s var(--ease-out), height .35s var(--ease-out), border-color .3s;
-        }
-        body:hover .cursor { opacity: 1; }
+
 
         /* ─── HEADER ─────────────────────────────────────────── */
         .header {
@@ -201,15 +180,16 @@
             margin-bottom: 96px;
         }
         .category-label {
-            font-family: var(--f-mono);
-            font-size: 10px;
-            letter-spacing: .22em;
+            font-family: var(--f-sans);
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: .04em;
             text-transform: uppercase;
-            color: var(--accent2);
-            margin-bottom: 28px;
+            color: var(--text);
+            margin-bottom: 32px;
             display: flex;
             align-items: center;
-            gap: 16px;
+            gap: 20px;
         }
         .category-label::after {
             content: '';
@@ -572,11 +552,7 @@
 </head>
 <body>
 
-    <!-- Custom Cursor -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-ring" id="cursorRing"></div>
-
-    <!-- Header -->
+<!-- Header -->
     <header class="header" id="siteHeader">
         <div class="logo">
             <div class="logo-name">Théophile Meunier</div>
@@ -606,10 +582,35 @@
             <div class="category-block fade-up">
                 <div class="category-label">Live Stream</div>
 
-                <!-- Taeootf (en premier maintenant) -->
+                <!-- Finals Rush -->
+                <div class="project-card">
+                    <div class="project-info">
+                        <span class="project-eyebrow">2024 — en cours · Esport · THE FINALS</span>
+                        <h2 class="project-title">Finals Rush</h2>
+                        <p class="project-desc">
+                            Média francophone axé sur l'esport de THE FINALS qui a pour but de devenir la référence française en terme d'analyses, de casts et d'événements compétitifs.
+                        </p>
+                        <ul class="project-bullets">
+                            <li>Opérateur régie & responsable production live — Finals Rush Média / RFL / WNG</li>
+                            <li>Gestion complète de la régie OBS en direct sur des événements esport internationaux (dizaines de sources simultanées, replays, transitions, multi-stream)</li>
+                            <li>Coordination technique et logistique entre les équipes staff de plusieurs tournois en parallèle (RFL — Russian Finals League, WNG, tournois européens)</li>
+                            <li>Développement d'une web app de production sur mesure : synchronisation en temps réel des overlays HTML (brackets, leaderboards, scores) entre le panneau admin staff et les sources OBS</li>
+                            <li>Développement d'outils complémentaires de contrôle OBS pour fluidifier la gestion des événements en direct</li>
+                            <li>Rôle de commentateur/casté en simultané avec les responsabilités techniques, en contexte d'équipe réduite</li>
+                            <li>Organisation et diffusion en direct des matchs et tournois sur YouTube Finals Rush, incluant la post-production des résumés</li>
+                        </ul>
+                    </div>
+                    <div class="project-media">
+                        <div class="media-wrap" style="background: var(--surface); min-height: 220px; display: flex; align-items: center; justify-content: center;">
+                            <span style="font-family: var(--f-serif); font-size: clamp(32px, 5vw, 52px); color: var(--accent); opacity: .7; letter-spacing: -.02em; padding: 40px; text-align: center; font-style: italic;">Finals<br>Rush</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Taeootf -->
                 <div class="project-card reverse">
                     <div class="project-info">
-                        <span class="project-eyebrow">Twitch · Esport</span>
+                        <span class="project-eyebrow">Twitch · Esport · THE FINALS</span>
                         <h2 class="project-title">Taeootf</h2>
                         <p class="project-desc">
                             Ma chaîne Twitch sur laquelle je diffuse mon gameplay sur The Finals. Diffusion de matchs, scrims et entraînements de mon équipe Esport ABSORBE.
@@ -1055,11 +1056,10 @@
                     <p class="about-photo-caption">Théophile Meunier — Versailles, France</p>
                 </div>
                 <div class="about-text">
-                    <p>Technicien son passionné, 22 ans, entre le studio et la scène.</p>
-                    <p>J'ai suivi trois années d'études en techniques du son, dont un an et demi de spécialisation en Sound Design, en alternance chez Lagardère Media News au poste de superviseur radio.</p>
-                    <p>Cette formation m'a offert une polyvalence technique solide : prise de son, post-production, montage, mixage, création musicale, sound design. J'ai également développé des compétences en intégration sonore pour les projets interactifs — jeu vidéo, Unreal Engine, Wwise, Fmod — ce qui me permet de comprendre les enjeux techniques et artistiques du son, et d'adapter mes méthodes à chaque univers de production.</p>
-                    <p>Après cette expérience, j'ai travaillé pendant un an et demi chez Gecko et GONG en tant qu'auto-entrepreneur. Missions de restauration et valorisation de supports audio anciens (montage, numérisation, contrôle qualité DAT), captations sonores à l'Académie française et à l'INJA, constitution de banques de sons pour la production de podcasts, et réalisation de podcasts complets de la préparation au mixage final.</p>
-                    <p>En parallèle, je cultive ma passion musicale en tant que trompettiste et guitariste amateur, et j'assure régulièrement la sonorisation de concerts — pour mes propres groupes ou pour d'autres artistes.</p>
+                    <p>Technicien son de formation et opérateur de production live, 23 ans, à l'aise aussi bien en studio que sur le terrain.</p>
+                    <p>Après trois ans d'études en techniques du son (3iS), dont une spécialisation Sound Design en alternance chez Lagardère Media News, j'ai développé une polyvalence technique solide : prise de son, post-production, mixage, sound design, intégration sonore pour le jeu vidéo (Unreal Engine, Wwise, Fmod). Cette base m'a appris à m'adapter vite à des univers de production très différents.</p>
+                    <p>En parallèle de mes missions freelance — restauration d'archives audio, captations à l'Académie française et à l'INJA, réalisation de podcasts de bout en bout — j'ai développé une activité de production live dans l'univers esport. Je gère la régie OBS en direct sur des événements internationaux, coordonne les équipes staff de plusieurs tournois en simultané, et j'ai développé des outils sur mesure pour automatiser et dynamiser la diffusion en direct. Cette expérience m'a entraîné à travailler sous pression, à jongler entre des responsabilités techniques, logistiques et éditoriales, et à m'adapter en temps réel aux imprévus.</p>
+                    <p>Musicien amateur (trompette, guitare), j'assure également la sonorisation de concerts pour mes propres groupes ou d'autres artistes.</p>
                 </div>
             </div>
         </section>
@@ -1120,41 +1120,7 @@
     </footer>
 
     <script>
-    // ── Cursor ──────────────────────────────────────────────
-    const cursor     = document.getElementById('cursor');
-    const cursorRing = document.getElementById('cursorRing');
-    let mx = 0, my = 0, rx = 0, ry = 0;
-
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-
-    (function loop() {
-        rx += (mx - rx) * .14;
-        ry += (my - ry) * .14;
-        cursor.style.left     = mx + 'px';
-        cursor.style.top      = my + 'px';
-        cursorRing.style.left = rx + 'px';
-        cursorRing.style.top  = ry + 'px';
-        requestAnimationFrame(loop);
-    })();
-
-    document.querySelectorAll('a, button, video, iframe').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.width  = '14px';
-            cursor.style.height = '14px';
-            cursorRing.style.width  = '54px';
-            cursorRing.style.height = '54px';
-            cursorRing.style.borderColor = 'rgba(200,184,154,.7)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.width  = '8px';
-            cursor.style.height = '8px';
-            cursorRing.style.width  = '36px';
-            cursorRing.style.height = '36px';
-            cursorRing.style.borderColor = 'rgba(200,184,154,.4)';
-        });
-    });
-
-    // ── Header scroll ────────────────────────────────────────
+// ── Header scroll ────────────────────────────────────────
     const header = document.getElementById('siteHeader');
     window.addEventListener('scroll', () => {
         header.classList.toggle('scrolled', window.scrollY > 40);
